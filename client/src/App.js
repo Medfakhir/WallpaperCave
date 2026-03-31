@@ -14,7 +14,6 @@ import {
   CardMedia,
   IconButton,
   Dialog,
-  CircularProgress,
   Fade,
   Drawer,
   List,
