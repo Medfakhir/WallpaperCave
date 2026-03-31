@@ -1,0 +1,177 @@
+{
+  "info": {
+    "name": "WallpaperCave API",
+    "description": "API for fetching high-quality wallpapers",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5001",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "health"]
+        },
+        "description": "Check if API is running"
+      }
+    },
+    {
+      "name": "API Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api",
+          "host": ["{{baseUrl}}"],
+          "path": ["api"]
+        },
+        "description": "Get API information and available endpoints"
+      }
+    },
+    {
+      "name": "Get Wallpapers - Nature",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/wallpapers?keyword=nature wallpaper&limit=20&offset=0",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "wallpapers"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "nature wallpaper"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        },
+        "description": "Fetch nature wallpapers"
+      }
+    },
+    {
+      "name": "Get Wallpapers - Space",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/wallpapers?keyword=space wallpaper&limit=20&offset=0",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "wallpapers"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "space wallpaper"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        },
+        "description": "Fetch space wallpapers"
+      }
+    },
+    {
+      "name": "Get Wallpapers - Gaming",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/wallpapers?keyword=gaming wallpaper&limit=20&offset=0",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "wallpapers"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "gaming wallpaper"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        },
+        "description": "Fetch gaming wallpapers"
+      }
+    },
+    {
+      "name": "Get Wallpapers - Pagination (Page 2)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/wallpapers?keyword=nature wallpaper&limit=20&offset=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "wallpapers"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "nature wallpaper"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            },
+            {
+              "key": "offset",
+              "value": "20"
+            }
+          ]
+        },
+        "description": "Fetch second page of nature wallpapers"
+      }
+    },
+    {
+      "name": "Get Wallpapers - Custom Limit",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/wallpapers?keyword=anime wallpaper&limit=10&offset=0",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "wallpapers"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "anime wallpaper"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            },
+            {
+              "key": "offset",
+              "value": "0"
+            }
+          ]
+        },
+        "description": "Fetch 10 anime wallpapers"
+      }
+    }
+  ]
+}
