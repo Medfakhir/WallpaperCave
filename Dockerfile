@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -y \
     xdg-utils \
     libgbm1 \
     libxshmfence1 \
+    ca-certificates \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
@@ -40,6 +41,15 @@ RUN npm install --production
 
 # Copy application code
 COPY server.js ./
+
+# Create a non-root user for security
+RUN groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /app
+
+# Switch to non-root user
+USER pptruser
 
 # Expose port (Fly.io will set PORT env variable)
 EXPOSE 8080
