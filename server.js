@@ -8,6 +8,7 @@ const PORT = 5001;
 // CORS configuration for production
 const allowedOrigins = [
   'http://localhost:3000',
+  'https://wallpapesrcave.netlify.app',
   'https://wallpapercave.netlify.app',
   'https://your-custom-domain.com',
   process.env.CLIENT_URL
