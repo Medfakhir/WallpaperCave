@@ -3,7 +3,7 @@ const cors = require('cors');
 const puppeteer = require('puppeteer');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5001;
 
 // CORS configuration for production
 const allowedOrigins = [
@@ -71,9 +71,23 @@ async function initPinterest() {
 
   console.log('🌐 Starting browser...');
   
-  browser = await puppeteer.launch({
+  // Different executable paths for different environments
+  let executablePath;
+  if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+    // Use environment variable (Fly.io)
+    executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+  } else if (process.platform === 'linux') {
+    // Linux container (Fly.io, Railway, etc.)
+    executablePath = '/usr/bin/chromium';
+  } else {
+    // Local development - let Puppeteer find Chrome/Chromium
+    executablePath = undefined;
+  }
+
+  console.log(`🔍 Using executable: ${executablePath || 'auto-detect'}`);
+  
+  const launchOptions = {
     headless: true,
-    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
     args: [
       '--no-sandbox', 
       '--disable-setuid-sandbox', 
@@ -89,7 +103,14 @@ async function initPinterest() {
       '--disable-backgrounding-occluded-windows',
       '--disable-renderer-backgrounding'
     ]
-  });
+  };
+
+  // Only set executablePath if we have one
+  if (executablePath) {
+    launchOptions.executablePath = executablePath;
+  }
+
+  browser = await puppeteer.launch(launchOptions);
 
   page = await browser.newPage();
   
