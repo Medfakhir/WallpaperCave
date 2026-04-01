@@ -114,6 +114,7 @@ async function initPinterest() {
 // Global state to track loaded images per keyword
 const loadedImagesCache = new Map();
 const lastScrollPosition = new Map();
+let currentKeyword = null; // Track current page keyword
 
 async function fetchWallpapers(keyword, limit = 20, offset = 0) {
   if (!isLoggedIn) {
@@ -125,15 +126,16 @@ async function fetchWallpapers(keyword, limit = 20, offset = 0) {
   
   // Check if we need to reload the page or continue scrolling
   const cacheKey = `${keyword}_images`;
-  let shouldReload = offset === 0;
+  let shouldReload = offset === 0 || currentKeyword !== keyword;
   
   if (shouldReload) {
-    console.log(`🔄 Fresh load for "${keyword}" - Reloading Pinterest page`);
+    console.log(`🔄 ${currentKeyword !== keyword ? 'New keyword' : 'Fresh load'} for "${keyword}" - Reloading Pinterest page`);
     try {
       await page.goto(searchUrl, { 
         waitUntil: 'domcontentloaded', 
         timeout: 15000 
       });
+      currentKeyword = keyword; // Update current keyword
     } catch (e) {
       console.log('⚠️ Page load timeout, continuing anyway');
     }
